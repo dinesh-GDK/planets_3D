@@ -10,10 +10,11 @@ html, body {
 
 .webgl {
     position: fixed;
-    top: 0;
-    left: 0;
     outline: none;
 }
 
+img {
+    content: url(assets/images/04be58c17b3d5e9744424d414240dd85.svg);
+}
 
 /*# sourceMappingURL=main.css.map*/
