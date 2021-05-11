@@ -29,17 +29,17 @@ const canvas = document.querySelector('canvas.webgl');
 const scene = new THREE.Scene();
 
 // Objects
-const geometry = new THREE.SphereGeometry(1, 64, 64);
+const planet_geometry = new THREE.SphereGeometry(1, 64, 64);
 
 // Materials
 const material = new THREE.MeshStandardMaterial({
-    map: new THREE.TextureLoader().load('mars_map.jpg'),
-    bumpMap: new THREE.TextureLoader().load('bump_map.jpg'),
-    bumpScale: 0.02,
+    map: new THREE.TextureLoader().load('./earth/earth_texture_map.jpg'),
+    bumpMap: new THREE.TextureLoader().load('./earth/earth_bump_map.jpg'),
+    bumpScale: 0.005,
 });
 
 // Mesh
-const sphere = new THREE.Mesh(geometry,material);
+const sphere = new THREE.Mesh(planet_geometry, material);
 scene.add(sphere);
 
 // Camera
@@ -67,6 +67,18 @@ const renderer = new THREE.WebGLRenderer({
 })
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+document.querySelector('select').addEventListener('change', () => {
+    
+    const planet = document.querySelector('select').value;
+    sphere.material.map = new THREE.TextureLoader().load(`./${planet}/${planet}_texture_map.jpg`);
+
+    if (document.querySelector('select').selectedIndex < 5) {
+        sphere.material.bumpMap = new THREE.TextureLoader().load(`./${planet}/${planet}_bump_map.jpg`);
+    } else {
+        sphere.material.bumpMap = new THREE.TextureLoader();
+    }
+});
 
 // Animate
 const clock = new THREE.Clock()
