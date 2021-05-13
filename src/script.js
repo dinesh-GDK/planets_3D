@@ -2,6 +2,38 @@ import './style.css';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
+// all maps
+const maps = {
+    mercury: {
+        map: new THREE.TextureLoader().load('./mercury/mercury_texture_map.jpg'),
+        bumpMap: new THREE.TextureLoader().load('./mercury/mercury_bump_map.jpg')
+    },
+    venus: {
+        map: new THREE.TextureLoader().load('./venus/venus_texture_map.jpg'),
+        bumpMap: new THREE.TextureLoader().load('./venus/venus_bump_map.jpg')
+    },
+    earth: {
+        map: new THREE.TextureLoader().load('./earth/earth_texture_map.jpg'),
+        bumpMap: new THREE.TextureLoader().load('./earth/earth_bump_map.jpg')
+    },
+    moon: {
+        map: new THREE.TextureLoader().load('./moon/moon_texture_map.jpg'),
+        bumpMap: new THREE.TextureLoader().load('./moon/moon_bump_map.jpg')
+    },
+    mars: {
+        map: new THREE.TextureLoader().load('./mars/mars_texture_map.jpg'),
+        bumpMap: new THREE.TextureLoader().load('./mars/mars_bump_map.jpg')
+    },
+    jupiter: {
+        map: new THREE.TextureLoader().load('./jupiter/jupiter_texture_map.jpg'),
+        bumpMap: new THREE.TextureLoader()
+    },
+    neptune: {
+        map: new THREE.TextureLoader().load('./neptune/neptune_texture_map.jpg'),
+        bumpMap: new THREE.TextureLoader()
+    }
+}
+
 // Sizes
 const sizes = {
     width: window.innerWidth,
@@ -33,8 +65,8 @@ const planet_geometry = new THREE.SphereGeometry(1, 64, 64);
 
 // Materials
 const material = new THREE.MeshStandardMaterial({
-    map: new THREE.TextureLoader().load('./earth/earth_texture_map.jpg'),
-    bumpMap: new THREE.TextureLoader().load('./earth/earth_bump_map.jpg'),
+    map: maps.earth.map,
+    bumpMap: maps.earth.bumpMap,
     bumpScale: 0.005,
 });
 
@@ -71,13 +103,8 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 document.querySelector('select').addEventListener('change', () => {
     
     const planet = document.querySelector('select').value;
-    sphere.material.map = new THREE.TextureLoader().load(`./${planet}/${planet}_texture_map.jpg`);
-
-    if (document.querySelector('select').selectedIndex < 5) {
-        sphere.material.bumpMap = new THREE.TextureLoader().load(`./${planet}/${planet}_bump_map.jpg`);
-    } else {
-        sphere.material.bumpMap = new THREE.TextureLoader();
-    }
+    sphere.material.map = maps[planet].map;
+    sphere.material.bumpMap = maps[planet].bumpMap;
 });
 
 // Animate
