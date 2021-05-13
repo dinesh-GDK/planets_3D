@@ -4,7 +4,7 @@
     <img src='/entry.gif'>
 </p>
 
-A simple web app to view some celestrial bodies in 3D
+A simple web app to view some celestial bodies in 3D
 
 The application is made using vanilla javascript (with `three.js` for graphics), HTML and CSS.
 
